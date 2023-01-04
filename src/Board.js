@@ -28,7 +28,6 @@ export default class Board extends React.Component {
     };
   }
   componentDidMount() {
-    console.log(this.state);
     const containers = [
       this.swimlanes.backlog.current,
       this.swimlanes.inProgress.current,
