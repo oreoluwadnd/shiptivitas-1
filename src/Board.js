@@ -21,6 +21,23 @@ export default class Board extends React.Component {
       complete: React.createRef(),
     }
   }
+  componentDidMount() {
+    console.log(this.state)
+    const containers = [this.swimlanes.backlog.current, this.swimlanes.inProgress.current, this.swimlanes.complete.current];
+      const dragulaInstance = Dragula(containers, {
+        moves: (el, source, handle, sibling) => true
+      });
+      dragulaInstance.on('drop', (el, target, source, sibling) => {
+      if (source === this.swimlanes.backlog.current && target === this.swimlanes.inProgress.current) {
+        console.log(el.id)
+        this.setState(prevState => ({
+          
+          // backlog: prevState.backlog.filter(i => i[i] !== item),
+          // inProgress: [...prevState.inProgress, item]
+        }));
+      }
+    })
+  }
   getClients() {
     return [
       ['1','Stark, White and Abbott','Cloned Optimal Architecture', 'in-progress'],
