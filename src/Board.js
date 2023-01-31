@@ -28,13 +28,16 @@ export default class Board extends React.Component {
         moves: (el, source, handle, sibling) => true
       });
       dragulaInstance.on('drop', (el, target, source, sibling) => {
+      const item =this.state.clients.backlog.find(i => parseInt(i.id) === parseInt(el.id));
+      console.log(item)
       if (source === this.swimlanes.backlog.current && target === this.swimlanes.inProgress.current) {
-        console.log(el.id)
-        this.setState(prevState => ({
-          
-          // backlog: prevState.backlog.filter(i => i[i] !== item),
-          // inProgress: [...prevState.inProgress, item]
-        }));
+      this.setState((prevState) => {
+          let newState = {...prevState};
+          newState.clients.backlog = prevState.clients.backlog.filter(i => i !== item);
+          newState.inProgress= {...prevState.clients.backlog, item}
+          return newState
+      });
+        console.log(this.state)
       }
     })
   }
